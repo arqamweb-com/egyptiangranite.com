@@ -1,0 +1,6 @@
+# Keep dev-only files out of `git archive` deploy bundles
+/src               export-ignore
+/package.json      export-ignore
+/package-lock.json export-ignore
+/.gitignore        export-ignore
+/.gitattributes    export-ignore
