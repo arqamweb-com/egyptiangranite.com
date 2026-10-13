@@ -1,0 +1,193 @@
+@import "tailwindcss" source(none);
+
+/* Scan the WordPress theme's PHP templates and JS for utility classes.
+   source(none) above disables automatic detection so only these count. */
+@source "../*.php";
+@source "../template-parts/*.php";
+@source "../inc/*.php";
+@source "../assets/js/*.js";
+
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-ivory: var(--ivory);
+  --color-stone: var(--stone);
+  --color-egypt-red: var(--egypt-red);
+  --font-display: "Cormorant Garamond", "Times New Roman", serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+:root {
+  --radius: 0.75rem;
+  --background: oklch(0.985 0.004 80);          /* #F8F7F3 ivory */
+  --foreground: oklch(0.18 0.01 250);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.18 0.01 250);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.18 0.01 250);
+  --primary: oklch(0.22 0.015 250);              /* graphite */
+  --primary-foreground: oklch(0.985 0.004 80);
+  --secondary: oklch(0.95 0.008 80);
+  --secondary-foreground: oklch(0.22 0.015 250);
+  --muted: oklch(0.94 0.006 80);
+  --muted-foreground: oklch(0.45 0.012 250);
+  --accent: oklch(0.78 0.12 80);                 /* gold accent */
+  --accent-foreground: oklch(0.18 0.01 250);
+  --destructive: oklch(0.55 0.22 27);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(0.9 0.008 80);
+  --input: oklch(0.92 0.008 80);
+  --ring: oklch(0.78 0.12 80);
+
+  --gold: oklch(0.78 0.12 80);                   /* #C9A24D */
+  --gold-soft: oklch(0.88 0.08 85);
+  --ivory: oklch(0.985 0.004 80);
+  --stone: oklch(0.55 0.012 250);
+  --egypt-red: oklch(0.5 0.18 28);
+
+  --gradient-luxe: linear-gradient(135deg, oklch(0.985 0.004 80) 0%, oklch(0.94 0.02 85) 100%);
+  --gradient-gold: linear-gradient(135deg, oklch(0.85 0.1 85) 0%, oklch(0.7 0.13 70) 100%);
+  --gradient-hero: radial-gradient(ellipse at top, oklch(0.95 0.04 85 / 0.6), transparent 60%),
+                   linear-gradient(180deg, oklch(0.99 0.005 85), oklch(0.94 0.01 80));
+  --shadow-luxe: 0 30px 60px -30px oklch(0.2 0.02 250 / 0.25), 0 2px 6px -2px oklch(0.2 0.02 250 / 0.1);
+  --shadow-gold: 0 20px 50px -20px oklch(0.78 0.12 80 / 0.5);
+  --glass-bg: oklch(1 0 0 / 0.55);
+  --glass-border: oklch(1 0 0 / 0.6);
+}
+
+.dark {
+  --background: oklch(0.13 0.012 250);           /* #070A0F */
+  --foreground: oklch(0.96 0.006 80);
+  --card: oklch(0.17 0.014 250);
+  --card-foreground: oklch(0.96 0.006 80);
+  --popover: oklch(0.17 0.014 250);
+  --popover-foreground: oklch(0.96 0.006 80);
+  --primary: oklch(0.96 0.006 80);
+  --primary-foreground: oklch(0.13 0.012 250);
+  --secondary: oklch(0.22 0.016 250);
+  --secondary-foreground: oklch(0.96 0.006 80);
+  --muted: oklch(0.22 0.016 250);
+  --muted-foreground: oklch(0.7 0.012 250);
+  --accent: oklch(0.78 0.13 82);
+  --accent-foreground: oklch(0.13 0.012 250);
+  --destructive: oklch(0.65 0.2 27);
+  --destructive-foreground: oklch(0.96 0 0);
+  --border: oklch(1 0 0 / 0.1);
+  --input: oklch(1 0 0 / 0.15);
+  --ring: oklch(0.78 0.13 82);
+
+  --gradient-luxe: linear-gradient(135deg, oklch(0.15 0.014 250) 0%, oklch(0.2 0.02 255) 100%);
+  --gradient-hero: radial-gradient(ellipse at top, oklch(0.3 0.08 80 / 0.25), transparent 60%),
+                   linear-gradient(180deg, oklch(0.13 0.012 250), oklch(0.1 0.012 250));
+  --shadow-luxe: 0 30px 60px -30px oklch(0 0 0 / 0.6), 0 2px 6px -2px oklch(0 0 0 / 0.4);
+  --glass-bg: oklch(0.2 0.015 250 / 0.55);
+  --glass-border: oklch(1 0 0 / 0.08);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.02em; font-weight: 500; }
+}
+
+@utility glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  border: 1px solid var(--glass-border);
+}
+
+@utility text-gold {
+  color: var(--gold);
+}
+
+@utility bg-gold {
+  background: var(--gold);
+}
+
+@utility gradient-gold-text {
+  background: var(--gradient-gold);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility hero-bg {
+  background: var(--gradient-hero);
+}
+
+@utility shadow-luxe {
+  box-shadow: var(--shadow-luxe);
+}
+
+@utility shadow-gold {
+  box-shadow: var(--shadow-gold);
+}
+
+@utility stone-grain {
+  background-image:
+    radial-gradient(circle at 20% 30%, oklch(0.78 0.12 80 / 0.06) 0, transparent 40%),
+    radial-gradient(circle at 80% 70%, oklch(0.5 0.18 28 / 0.04) 0, transparent 40%);
+}
+
+@utility grid-glow {
+  background-image:
+    linear-gradient(oklch(0.78 0.12 80 / 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, oklch(0.78 0.12 80 / 0.08) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+}
+
+@keyframes float-soft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@utility animate-float { animation: float-soft 6s ease-in-out infinite; }
+@utility animate-fade-up { animation: fade-up 0.8s ease-out both; }

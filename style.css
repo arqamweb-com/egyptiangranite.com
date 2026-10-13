@@ -1,0 +1,20 @@
+/*
+Theme Name: Granite Gateway
+Theme URI: https://egyptiangranite.com/
+Author: Granite Gateway
+Author URI: https://egyptiangranite.com/
+Description: Premium B2B WordPress theme for Egyptian Granite — converted from the Granite Gateway (Lovable / TanStack Start) project. Editable header & footer menus, Products and Blog custom post types, and a full set of named page templates. Default light mode with a dark-mode toggle.
+Version: 1.0.0
+Requires at least: 6.0
+Tested up to: 6.6
+Requires PHP: 7.4
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: granite-gateway
+Tags: business, custom-menu, custom-colors, featured-images, full-width-template, theme-options, translation-ready
+*/
+
+/*
+ * Visual styling lives in /assets/css/styles.css (compiled Tailwind from the
+ * original build). This file only carries the WordPress theme header.
+ */
