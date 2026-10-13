@@ -12,6 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'GG_VERSION', '1.0.0' );
 
 require_once get_template_directory() . '/inc/setup.php';
+require_once get_template_directory() . '/inc/cf7-quote-form.php';
 
 /**
  * Theme supports & menu locations.
@@ -47,6 +48,14 @@ function gg_after_setup_theme() {
 add_action( 'after_setup_theme', 'gg_after_setup_theme' );
 
 /**
+ * Cache-busting version for a theme asset: changes whenever the file does.
+ */
+function gg_asset_version( $path ) {
+	$mtime = filemtime( get_template_directory() . '/' . $path );
+	return $mtime ? GG_VERSION . '.' . $mtime : GG_VERSION;
+}
+
+/**
  * Front-end assets: fonts, compiled CSS, theme JS.
  */
 function gg_enqueue_assets() {
@@ -61,14 +70,14 @@ function gg_enqueue_assets() {
 		'gg-styles',
 		get_template_directory_uri() . '/assets/css/styles.css',
 		array(),
-		GG_VERSION
+		gg_asset_version( 'assets/css/styles.css' )
 	);
 
 	wp_enqueue_script(
 		'gg-theme',
 		get_template_directory_uri() . '/assets/js/theme.js',
 		array(),
-		GG_VERSION,
+		gg_asset_version( 'assets/js/theme.js' ),
 		true
 	);
 }
@@ -239,68 +248,3 @@ function gg_raw_cpt_content( $content ) {
 	return $content;
 }
 add_filter( 'the_content', 'gg_raw_cpt_content', 0 );
-
-/* -------------------------------------------------------------------------
- * Contact / quote request form handler.
- * ---------------------------------------------------------------------- */
-
-function gg_handle_contact() {
-	$redirect = wp_get_referer() ? wp_get_referer() : home_url( '/contact' );
-
-	if ( ! isset( $_POST['gg_contact_nonce'] ) || ! wp_verify_nonce( wp_unslash( $_POST['gg_contact_nonce'] ), 'gg_contact' ) ) {
-		wp_safe_redirect( add_query_arg( 'contact', 'error', $redirect ) );
-		exit;
-	}
-
-	$fields = array(
-		'fullName'    => 'Full Name',
-		'company'     => 'Company',
-		'country'     => 'Country',
-		'email'       => 'Email',
-		'whatsapp'    => 'WhatsApp',
-		'product'     => 'Product',
-		'form'        => 'Required Form',
-		'finish'      => 'Finish',
-		'thickness'   => 'Thickness (cm)',
-		'quantity'    => 'Quantity',
-		'port'        => 'Destination Port',
-		'projectType' => 'Project Type',
-		'message'     => 'Message',
-	);
-
-	$name  = isset( $_POST['fullName'] ) ? sanitize_text_field( wp_unslash( $_POST['fullName'] ) ) : '';
-	$email = isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
-
-	if ( '' === $name || ! is_email( $email ) ) {
-		wp_safe_redirect( add_query_arg( 'contact', 'error', $redirect ) );
-		exit;
-	}
-
-	$lines = array();
-	foreach ( $fields as $key => $label ) {
-		if ( ! isset( $_POST[ $key ] ) ) {
-			continue;
-		}
-		$val = 'message' === $key
-			? sanitize_textarea_field( wp_unslash( $_POST[ $key ] ) )
-			: sanitize_text_field( wp_unslash( $_POST[ $key ] ) );
-		if ( '' !== $val ) {
-			$lines[] = $label . ': ' . $val;
-		}
-	}
-
-	$to      = get_option( 'admin_email' );
-	$subject = sprintf( '[Quote Request] %s — %s', $name, get_bloginfo( 'name' ) );
-	$body    = implode( "\n", $lines );
-	$headers = array( 'Content-Type: text/plain; charset=UTF-8' );
-	if ( $email ) {
-		$headers[] = 'Reply-To: ' . $name . ' <' . $email . '>';
-	}
-
-	$sent = wp_mail( $to, $subject, $body, $headers );
-
-	wp_safe_redirect( add_query_arg( 'contact', $sent ? 'success' : 'error', $redirect ) );
-	exit;
-}
-add_action( 'admin_post_nopriv_gg_contact', 'gg_handle_contact' );
-add_action( 'admin_post_gg_contact', 'gg_handle_contact' );

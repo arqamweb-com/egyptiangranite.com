@@ -173,31 +173,7 @@
 		els.forEach(function (el) { io.observe(el); });
 	}
 
-	/* ---- 6. Contact form feedback ---- */
-	function initContactFeedback() {
-		var params = new URLSearchParams(window.location.search);
-		var status = params.get('contact');
-		if (!status) { return; }
-		var host = document.getElementById('gg-form-status');
-		var form = document.querySelector('form[action*="admin-post.php"]');
-		var box = document.createElement('div');
-		var ok = status === 'success';
-		box.className = 'mb-2 rounded-xl px-4 py-3 text-sm ' +
-			(ok ? 'bg-gold/15 text-foreground border border-gold/40'
-			    : 'bg-destructive/10 text-foreground border border-destructive/40');
-		box.textContent = ok
-			? 'Thank you — your quote request has been sent. Our export team will reply shortly.'
-			: 'Sorry, your request could not be sent. Please check the required fields or email info@egyptiangranite.com.';
-		if (host) { host.appendChild(box); }
-		else if (form) { form.parentNode.insertBefore(box, form); }
-		if (ok && form) { form.reset(); }
-		params.delete('contact');
-		var url = window.location.pathname + (params.toString() ? '?' + params.toString() : '') + window.location.hash;
-		window.history.replaceState({}, '', url);
-		if (host) { host.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
-	}
-
-	/* ---- 7. Accordion ---- */
+	/* ---- 6. Accordion ---- */
 	function initAccordion() {
 		document.querySelectorAll('[data-accordion-trigger]').forEach(function (trigger) {
 			trigger.addEventListener('click', function () {
@@ -211,7 +187,7 @@
 		});
 	}
 
-	/* ---- 8. Cursor glow (fine pointers only) ---- */
+	/* ---- 7. Cursor glow (fine pointers only) ---- */
 	function initCursorGlow() {
 		var glow = document.getElementById('cursor-glow');
 		if (!glow || !window.matchMedia('(pointer: fine)').matches) { return; }
@@ -223,7 +199,7 @@
 		document.addEventListener('mouseleave', function () { glow.style.opacity = '0'; });
 	}
 
-	/* ---- 9. Home-page product filter ---- */
+	/* ---- 8. Home-page product filter ---- */
 	function initHomeFilter() {
 		var filter = document.getElementById('gg-home-filter');
 		var grid   = document.getElementById('gg-home-grid');
@@ -259,7 +235,7 @@
 		});
 	}
 
-	/* ---- 10. Blog category filter ---- */
+	/* ---- 9. Blog category filter ---- */
 	function initBlogFilter() {
 		var filter = document.getElementById('gg-blog-filter');
 		var grid   = document.getElementById('gg-blog-grid');
@@ -293,7 +269,7 @@
 		});
 	}
 
-	/* ---- 11. Product catalog filter + live search ---- */
+	/* ---- 10. Product catalog filter + live search ---- */
 	function initCatalogFilter() {
 		var grid = document.getElementById('gg-catalog-grid');
 		if (!grid) { return; }
@@ -404,7 +380,6 @@
 		initMobileSubmenu();
 		initReveal();
 		initCounters();
-		initContactFeedback();
 		initAccordion();
 		initCursorGlow();
 		initHomeFilter();

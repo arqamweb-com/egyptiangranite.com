@@ -93,6 +93,7 @@ function gg_after_switch_theme() {
 	gg_migrate_gg_articles();
 	gg_seed_articles();
 	gg_create_menus( $page_ids );
+	gg_ensure_quote_form();
 
 	// Front page.
 	if ( ! empty( $page_ids['home'] ) ) {

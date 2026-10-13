@@ -191,3 +191,35 @@
 
 @utility animate-float { animation: float-soft 6s ease-in-out infinite; }
 @utility animate-fade-up { animation: fade-up 0.8s ease-out both; }
+
+/* Contact Form 7 — quote form (inc/cf7-quote-form.php).
+   Mirrors the original form's utility classes; CF7 tags can't carry them. */
+.gg-quote-form .wpcf7-form-control-wrap { display: block; }
+
+.gg-quote-form :is(input[type="text"], input[type="email"], input[type="tel"], select, textarea) {
+  @apply w-full px-4 py-2.5 rounded-xl bg-background border border-border text-sm focus:border-gold focus:outline-none;
+}
+.gg-quote-form textarea { @apply py-3; }
+
+.gg-quote-form input[type="file"] {
+  @apply w-full px-4 py-6 rounded-xl border border-dashed border-border text-sm text-muted-foreground cursor-pointer hover:border-gold transition;
+}
+.gg-quote-form input[type="file"]::file-selector-button {
+  @apply mr-4 rounded-full border-0 bg-foreground text-background px-4 py-2 text-xs font-medium cursor-pointer;
+}
+
+.gg-quote-form .wpcf7-submit {
+  @apply w-full inline-flex items-center justify-center rounded-full bg-foreground text-background px-6 py-3.5 text-sm font-medium cursor-pointer hover:opacity-90 transition disabled:opacity-60;
+}
+.gg-quote-form .wpcf7-spinner { @apply hidden; }
+.gg-quote-form .wpcf7 form.submitting .wpcf7-spinner { @apply block mx-auto mt-3; }
+
+.gg-quote-form .wpcf7-not-valid { @apply border-destructive; }
+.gg-quote-form .wpcf7-not-valid-tip { @apply mt-1 text-xs text-destructive; }
+
+.gg-quote-form .wpcf7 form .wpcf7-response-output {
+  @apply m-0 mt-5 rounded-xl px-4 py-3 text-sm text-foreground border border-destructive/40 bg-destructive/10;
+}
+.gg-quote-form .wpcf7 form.sent .wpcf7-response-output {
+  @apply border-gold/40 bg-gold/15;
+}
