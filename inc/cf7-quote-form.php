@@ -119,6 +119,8 @@ function gg_ensure_quote_form() {
 	}
 	return $id;
 }
+// Covers sites where the theme is already active (e.g. after a deploy).
+add_action( 'admin_init', 'gg_ensure_quote_form' );
 
 /**
  * ID of the quote form if it still exists in CF7.
